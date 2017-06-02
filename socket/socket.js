@@ -49,6 +49,9 @@ exports = module.exports = function(io) {
             text: 'connected',
             created: Date.now(),
             username: socket.request.user.username
+
+
+
         });
 
         // handle chat messages received from client (later published to all connected clients)
@@ -63,8 +66,10 @@ exports = module.exports = function(io) {
             if(parts.length >= 1 && socketStore.get(parts[0]) != null) {
                 message.text = parts.slice(1).join(" ");
                 socketStore.get(parts[0]).emit('chatMessage', message);
+                socketStore.get(message.username).emit('chatMessage', message);
             } else {
                 io.emit('chatMessage', message);
+                //dgsgdgshagdhsja
             }
         });
 
